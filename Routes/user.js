@@ -12,4 +12,10 @@ router.get('/', (req, res) => {
     res.send(users)
 })
 
+router.get('/error', (req, res, next) => {
+    const err = new Error('oh no')
+    console.log(err)
+    next(err)
+})
+
 export default router
