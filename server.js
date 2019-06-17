@@ -1,7 +1,9 @@
+import 'dotenv/config'
 import express from 'express'
 import fs from 'fs'
 import _ from 'lodash'
 import routes from './Routes'
+
 
 
 const app = express()
