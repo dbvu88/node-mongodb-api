@@ -3,12 +3,13 @@ import express from 'express'
 import fs from 'fs'
 import _ from 'lodash'
 import routes from './Routes'
+import morgan from 'morgan'
 
 
 
 const app = express()
 app.use(express.json())
-
+app.use(morgan())
 app.use(express.static('Views'))
 
 app.get('/form', (req, res) => {
@@ -27,10 +28,11 @@ app.use('/api/users', routes.user)
 //     })
 // })
 
-// app.post('/', (req, res) => {
-//     // console.log(req)
-//     res.json(req.body)
-// })
+// global error handler
+app.use((err, req, res, next) => {
+    console.log(err)
+    res.send('There is an err')
+})
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
