@@ -8,14 +8,34 @@ const users = [
     { username: 'Jim' },
 ]
 
-router.get('/', (req, res) => {
-    res.send(users)
+router.param('id', (req, res, next, id) => {
+    console.log(id)
+    next()
 })
 
-router.get('/error', (req, res, next) => {
-    const err = new Error('oh no')
-    console.log(err)
-    next(err)
+router.all('/', (req, res, next) => {
+    console.log(req.baseUrl)
+    next()
 })
+
+router.route('/')
+.get((req, res) => {
+    res.send(users)
+})
+.post((req, res) => {
+    res.send(req.body)
+})
+
+router.route('/:id')
+.get((req, res) => {
+    res.send(users[req.params.id])
+})
+.put((req, res) => {
+    res.send(users[req.params.id])
+})
+.delete((req, res) => {
+    res.send(users[req.params.id])
+})
+
 
 export default router

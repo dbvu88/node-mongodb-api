@@ -12,6 +12,10 @@ app.use(express.json())
 app.use(morgan())
 app.use(express.static('Views'))
 
+app.get('/error', (req, res, next) => {
+    next(new Error('oh no'))
+})
+
 app.get('/form', (req, res) => {
     res.sendFile(__dirname + '/Views/form.html', error => {
         res.status(500).send(error)
@@ -31,7 +35,12 @@ app.use('/api/users', routes.user)
 // global error handler
 app.use((err, req, res, next) => {
     console.log(err)
-    res.send('There is an err')
+    if (err) {
+        console.log(err)
+        res.status(500).json(err)
+    } else {
+        next()
+    }
 })
 
 const port = process.env.PORT || 3000
