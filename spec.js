@@ -28,4 +28,17 @@ describe('users', () => {
             done()
         })
     })
+
+
+    it('should GET all users', (done) => {
+        request(app)
+        .get('/api/users/0')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end((err, res) => {
+            expect(res.body).to.be.an('object')
+            done()
+        })
+    })
 })
