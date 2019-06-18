@@ -1,5 +1,11 @@
-import user from './user'
+// import user from './user'
 
-export default {
+const user = require('./user')
+
+// export default {
+//     user,
+// }
+
+module.exports = {
     user,
 }

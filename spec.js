@@ -1,6 +1,11 @@
-import app from './server'
-import request from 'supertest'
-import { expect } from 'chai'
+// import app from './server'
+// import request from 'supertest'
+// import { expect } from 'chai'
+
+const app = require('./server')
+const request = require('supertest')
+const expect = require('chai').expect
+
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
@@ -8,13 +13,17 @@ app.listen(port, () => {
 })
 
 describe('users', () => {
+    beforeEach(() => {
+        console.log('before every test')
+    })
+    
     it('should GET all users', (done) => {
         request(app)
         .get('/api/users')
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(200)
-        .done((err, res) => {
+        .end((err, res) => {
             expect(res.body).to.be.an('array')
             done()
         })

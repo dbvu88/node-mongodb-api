@@ -1,4 +1,8 @@
-import { Router } from 'express'
+// import { Router } from 'express'
+
+const Router = require('express').Router
+
+
 
 const router = Router()
 
@@ -38,4 +42,6 @@ router.route('/:id')
 })
 
 
-export default router
+// export default router
+
+module.exports = router

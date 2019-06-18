@@ -1,9 +1,16 @@
-import 'dotenv/config'
-import express from 'express'
-import fs from 'fs'
-import _ from 'lodash'
-import routes from './Routes'
-import morgan from 'morgan'
+// import 'dotenv/config'
+// import express from 'express'
+// import fs from 'fs'
+// import _ from 'lodash'
+// import routes from './Routes'
+// import morgan from 'morgan'
+
+require('dotenv/config') 
+const express = require('express') 
+const fs = require('fs')
+const _ = require('lodash')
+const routes = require('./Routes')
+const morgan = require('morgan')
 
 
 
@@ -45,4 +52,6 @@ app.use((err, req, res, next) => {
 
 
 
-export default app
+// export default app
+
+module.exports = app
