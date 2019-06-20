@@ -9,15 +9,23 @@ require('dotenv/config')
 const express = require('express') 
 const fs = require('fs')
 const _ = require('lodash')
-const routes = require('./Routes')
-const morgan = require('morgan')
+const api = require('./api')
+const useMiddleware = require('./useMiddleware')
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/puppies')
+const todoSchema = new mongoose.Schema({
+    name: String,
+    completed: Boolean
+})
 
-
+const todo = mongoose.model('todo', todoSchema)
+todo.create({
+    name: 'cleanup',
+    completed: false
+}).then()
 
 const app = express()
-app.use(express.json())
-app.use(morgan())
-app.use(express.static('Views'))
+useMiddleware(app)
 
 app.get('/error', (req, res, next) => {
     next(new Error('oh no'))
@@ -29,7 +37,9 @@ app.get('/form', (req, res) => {
     })
 })
 
-app.use('/api/users', routes.user)
+
+
+app.use('/api/', api)
 
 // app.get('/home', (req, res) => {
 //     fs.readFile('/Views/index.html', (err, buffer) => {
